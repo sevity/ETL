@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, split
 from pyspark.sql.types import StructType, StructField, StringType
 from pyspark.sql.functions import to_timestamp
+from pyspark.sql.functions import unix_timestamp
 
 
 
@@ -39,8 +40,11 @@ df = df.select(from_json(df.json, schema2).alias("data")).select("data.*")
 df = df.withColumn("message_split", split(df["message"], " "))
 df = df.withColumn("client_ip", df["message_split"].getItem(2))
 df = df.withColumn("url", df["message_split"].getItem(4))
-df = df.withColumn("timestamp", to_timestamp(df["@timestamp"]))
-#df = df.withColumn("timestamp", df["@timestamp"])
+#df = df.withColumn("timestamp", unix_timestamp(df["@timestamp"], 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'').cast("timestamp"))
+#df = df.withColumn("timestamp", unix_timestamp(df["@timestamp"], 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'').cast("timestamp"))
+#df = df.withColumn("timestamp", to_timestamp(unix_timestamp(df["@timestamp"], 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'').cast("timestamp")))
+#df = df.withColumn("timestamp", to_timestamp(df["@timestamp"]))
+df = df.withColumn("timestamp", df["@timestamp"])
 
 # 필요한 컬럼 선택
 df = df.select("client_ip", "url", "timestamp")
