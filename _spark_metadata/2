@@ -1,0 +1,2 @@
+v1
+{"path":"hdfs://localhost:9000/user/hadoop/iis_log/part-00000-48059997-9c8d-47b2-9436-c316bca449c3-c000.csv","size":1552,"isDir":false,"modificationTime":1690903831365,"blockReplication":1,"blockSize":134217728,"action":"add"}
