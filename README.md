@@ -1,2 +1,2 @@
 # ETL
-ETL연습
+ETL
